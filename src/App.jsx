@@ -23,7 +23,9 @@ const App = () => {
     scores: {
       password: 'Medium',
       twoFactor: 'Enabled',
-      thirdParty: 'High Risk',
+      biometrics: 'Setup',
+      encryption: 'Active',
+      updates: 'Pending',
       recovery: 'Verified'
     },
     findings: [
@@ -111,7 +113,12 @@ const App = () => {
                   <option>Instagram</option>
                   <option>YouTube</option>
                   <option>Facebook</option>
-                  <option>Email</option>
+                  <option>WhatsApp / Telegram</option>
+                  <option>Email (Gmail/Outlook)</option>
+                  <option>Android Device</option>
+                  <option>iPhone (iOS)</option>
+                  <option>Windows Laptop</option>
+                  <option>MacBook (macOS)</option>
                 </select>
               </div>
             </div>
@@ -121,20 +128,47 @@ const App = () => {
             <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
               <ShieldAlert className="w-5 h-5 text-indigo-600" /> Security Scores
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Password Strength</label>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Passcode/Pin</label>
                 <select className="w-full p-2 border rounded-md" value={formData.scores.password} onChange={(e) => handleScoreChange('password', e.target.value)}>
-                  <option>Strong</option>
-                  <option>Medium</option>
-                  <option>Weak</option>
+                  <option>Strong / Alpha</option>
+                  <option>Medium / Numeric</option>
+                  <option>Weak / Simple</option>
+                  <option>None</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">2FA Status</label>
+                <label className="block text-sm font-medium text-slate-700 mb-1">2FA / Biometrics</label>
                 <select className="w-full p-2 border rounded-md" value={formData.scores.twoFactor} onChange={(e) => handleScoreChange('twoFactor', e.target.value)}>
-                  <option>Enabled</option>
-                  <option>SMS Only (Risky)</option>
+                  <option>Enabled / Bio</option>
+                  <option>Hardware Key</option>
+                  <option>SMS Only</option>
+                  <option>Disabled</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Data Encryption</label>
+                <select className="w-full p-2 border rounded-md" value={formData.scores.encryption} onChange={(e) => handleScoreChange('encryption', e.target.value)}>
+                  <option>Active / Full</option>
+                  <option>Partial</option>
+                  <option>Disabled</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">System Updates</label>
+                <select className="w-full p-2 border rounded-md" value={formData.scores.updates} onChange={(e) => handleScoreChange('updates', e.target.value)}>
+                  <option>Up to date</option>
+                  <option>Pending</option>
+                  <option>Outdated</option>
+                  <option>Auto disabled</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Find My / Recovery</label>
+                <select className="w-full p-2 border rounded-md" value={formData.scores.recovery} onChange={(e) => handleScoreChange('recovery', e.target.value)}>
+                  <option>Verified</option>
+                  <option>Unverified</option>
                   <option>Disabled</option>
                 </select>
               </div>
@@ -205,11 +239,12 @@ const App = () => {
 
           <div className="p-8 space-y-8">
             {/* Score Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <ScoreCard icon={<Lock className="w-4 h-4"/>} title="Password" val={formData.scores.password} />
-              <ScoreCard icon={<Smartphone className="w-4 h-4"/>} title="2FA" val={formData.scores.twoFactor} />
-              <ScoreCard icon={<AppWindow className="w-4 h-4"/>} title="Apps" val={formData.scores.thirdParty} />
-              <ScoreCard icon={<RotateCcw className="w-4 h-4"/>} title="Recovery" val={formData.scores.recovery} />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              <ScoreCard icon={<Lock className="w-4 h-4"/>} title="Passcode" val={formData.scores.password} />
+              <ScoreCard icon={<Smartphone className="w-4 h-4"/>} title="2FA/Bio" val={formData.scores.twoFactor} />
+              <ScoreCard icon={<ShieldCheck className="w-4 h-4"/>} title="Encryption" val={formData.scores.encryption} />
+              <ScoreCard icon={<RotateCcw className="w-4 h-4"/>} title="Updates" val={formData.scores.updates} />
+              <ScoreCard icon={<AppWindow className="w-4 h-4"/>} title="Recovery" val={formData.scores.recovery} />
             </div>
 
             {/* Findings Section */}
